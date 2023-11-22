@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sortable Table</title>
+    <!-- Include Pagedown scripts for Markdown to HTML conversion and table sorting -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pagedown/1.0/Markdown.Converter.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pagedown/1.0/Markdown.Sanitizer.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pagedown/1.0/Markdown.Editor.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pagedown/1.0/Markdown.Extra.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pagedown/1.0/Markdown.Editor.UI.js"></script>
+
+    <!-- Custom JavaScript for enabling table sorting -->
+    <script>
+        function enableTableSorting() {
+            var converter = new Markdown.Converter();
+            converter.hooks.chain("postConversion", function (text) {
+                return text.replace(/<table>/g, '<table class="table table-bordered table-striped" id="sortable">');
+            });
+
+            var editor = new Markdown.Editor(converter);
+            editor.run();
+        }
+
+        enableTableSorting();
+    </script>
+
+    <!-- Include Bootstrap for styling (optional) -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+
+<!-- Your Markdown table -->
+<textarea id="markdown-content" style="display: none;">
+| Year | Opponent              | Date       | H/A | District    | Result | Score |
+| ---- | --------------------- | ---------- | --- | ----------- | ------ | ----- |
+| 1983 | Alexandria Senior High| 10/7/1983  | H   | DISTRICT    | L      | 6 - 40|
+| 1984 | Alexandria Senior High| 10/5/1984  | A   | DISTRICT    | L      | 0 - 40|
+| 1985 | Some Opponent         | 9/20/1985  | H   | NON-DISTRICT| W      | 21-14 |
+</textarea>
+
+<!-- Render Markdown to HTML and display it -->
+<div id="output" class="container mt-4"></div>
+
+<!-- Include jQuery and Bootstrap JavaScript (optional) -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+</body>
+</html>
